@@ -1,0 +1,76 @@
+/*! 370PX-519PX MOBILE */
+@media (min-width: 370px) {
+    
+}
+
+/*! 520PX-679PX */
+@media (min-width: 520px) {
+
+}
+
+/*! 680PX-1059PX */
+@media (min-width: 680px) {
+    
+
+}
+
+/*! 1060PX-1799PX LAPTOP*/
+@media (min-width: 1060px) {
+    
+}
+
+/*! 1800PX+ PC*/
+@media (min-width: 1800px) {
+    .profileName {
+        margin: 1vw;
+        font-size: large;
+    }
+
+    .sloganStyle {
+        margin: 1vw;
+        font-size: large;
+    }
+
+    .bioStyle {
+        margin: 1vw;
+        font-size: medium;
+    }
+
+    .profileNames {
+        margin: 1vw
+    }
+
+    .profilePost {
+        margin: 1vw
+    }
+
+    .postTitle {
+        margin: 1vw;
+        font-size: x-large;
+    }
+
+    .profileEnterSlo {
+        width: 20vw;
+        margin: 0.5vw
+    }
+
+    .profileEnterBio {
+        width: 30vw;
+        margin: 0.5vw
+    }
+
+    .bioSloForm {
+        margin: 1vw;
+    }
+
+    .profileForm {
+        display: flex;
+        flex-direction: row;
+        margin: 1vw;
+    }
+
+    .profilebutton {
+        margin: 0.5vw
+    }
+}
+

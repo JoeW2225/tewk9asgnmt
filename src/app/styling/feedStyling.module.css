@@ -1,0 +1,34 @@
+/*! 370PX-519PX MOBILE */
+@media (min-width: 370px) {
+    
+}
+
+/*! 520PX-679PX */
+@media (min-width: 520px) {
+
+}
+
+/*! 680PX-1059PX */
+@media (min-width: 680px) {
+    
+
+}
+
+/*! 1060PX-1799PX LAPTOP*/
+@media (min-width: 1060px) {
+    
+}
+
+/*! 1800PX+ PC*/
+@media (min-width: 1800px) {
+    .formStyling {
+        display: flex;
+        flex-direction: row;
+
+    }
+    .postStyling {
+        margin-left: 1vw;
+        width: 30vw;
+    }
+
+}
