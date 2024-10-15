@@ -15,3 +15,14 @@ export type NewBiosloganFormData = {
     slogan: string,
     bio: string
 }
+
+//! profile types:
+export type profile = {
+    clerk_id: string,
+    imageUrl: string,
+    firstname: string,
+    lastname: string,
+    post: string,
+    bio: string,
+    slogan: string
+}

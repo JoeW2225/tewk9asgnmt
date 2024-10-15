@@ -1,6 +1,6 @@
 import { connect } from "@/app/utils/connect"
 import { currentUser, auth  } from "@clerk/nextjs/server";
-import { post, NewBiosloganFormData } from "@/app/profile/profile.type"
+import { post, NewBiosloganFormData, profile } from "@/app/profile/profile.type"
 import NewBiosloganClient from "@/app/components/profileComponent/NewBiosloComponent"
 import Image from 'next/image';
 import ProfileName from '@/app/styling/profileStyling.module.css'
@@ -40,7 +40,7 @@ export default async function ProfilePage() {
         const profileInfo = await db.query(`SELECT * FROM profiles WHERE clerk_id = $1`,
             [userId])
 
-        const profile = profileInfo.rows
+        const profile: profile[] = profileInfo.rows
         
         //! If the profile doesn't exist, add to DB:
         if (profile.length === 0 ) {
@@ -50,7 +50,7 @@ export default async function ProfilePage() {
         }
 
         //! If the profile pic  URL doesn't match the URL in the DB:
-        if (profile.imageUrl !== imageUrl) {
+        if (profile[0]?.imageUrl !== imageUrl) {
             //^ we're saying if the old DB imgURL IS NOT the same as the current imgURL, then UPDATE DB:
             await db.query(`UPDATE profiles SET imageUrl = $1 WHERE clerk_id = $2`, [imageUrl, userId])
         }
