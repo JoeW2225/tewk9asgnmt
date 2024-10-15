@@ -14,6 +14,7 @@ https://clerk.com/docs/references/backend/types/backend-user
 https://www.w3schools.com/sql/sql_foreignkey.asp
 https://nextjs.org/docs/pages/building-your-application/configuring/eslint#disabling-rules
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+https://stackoverflow.com/questions/36359440/postgresql-insert-on-conflict-update-upsert-use-all-excluded-values
 (Matts screenshot on creating data types and using them in interfaces etc)
 
 #### UI library used:
@@ -36,6 +37,33 @@ As above, we are preventing the site from crashing if there isn't a imageUrl (in
 In the specific case of line 93: [profile[0]?.slogan, profile[0]?.bio, clerk_id] >>>
 
 Ensures that it only tries to access the slogan and bio properties if the first profile exists. If the array is empty or undefined, it won’t crash.
+
+**REPLACING PRE-EXISTING DATA IN ROWS WITH NEW DATA:**
+
+On further testing, when I update the bio and slogan and hit refresh, the changes weren't being made.
+Although it was being saved to the DB, it was just getting the previous submission:
+
+> > > INSERT INTO bioslogan (clerk_id, slogan, bio) VALUES ($1, $2, $3)`,[clerk_id, slogan, bio]
+
+^^^DOESN'T WORK - your just adding more rows
+
+SOLUTION:
+
+> > > INSERT INTO bioslogan (clerk_id, slogan, bio)
+> > > VALUES (2, 'I will be remembered', 'A lifelong learner with a passion for anonymity...')
+> > > ON CONFLICT (clerk_id)
+> > > DO UPDATE SET
+> > > slogan = EXCLUDED.slogan,
+> > > bio = EXCLUDED.bio;
+
+However, to get this to work we need to uniquely identify a user's bio and slogan, we need to enforce uniqueness on clerk_id in the bioslogan table.
+
+To make sure that there can only be one entry per clerk_id in the bioslogan table, we add a unique constraint on the clerk_id column:
+
+> > > ALTER TABLE bioslogan
+> > > ADD CONSTRAINT unique_clerk_id UNIQUE (clerk_id);
+
+This ensures that each clerk_id can have only one bio and slogan, so any INSERT operation with a duplicate clerk_id will trigger the ON CONFLICT
 
 ### Reflection:
 

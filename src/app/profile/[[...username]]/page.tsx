@@ -93,7 +93,7 @@ export default async function ProfilePage() {
                 WHERE clerk_id = $3`, [profile[0]?.slogan, profile[0]?.bio, clerk_id])
         }
             //^ see README.md for further notes about: [profile[0]?.slogan, profile[0]?.bio, clerk_id]
-            
+
         //! POSTING new bio & slogan to db:
         async function newBiosloganServerAction(formData: NewBiosloganFormData) {
         'use server'
@@ -102,7 +102,10 @@ export default async function ProfilePage() {
 
         try {
             await db.query(`
-                INSERT INTO bioslogan (clerk_id, slogan, bio) VALUES ($1, $2, $3)`,[clerk_id, slogan, bio])
+                INSERT INTO bioslogan (clerk_id, slogan, bio)
+                VALUES ($1, $2, $3)
+                ON CONFLICT (clerk_id)
+                DO UPDATE SET slogan = EXCLUDED.slogan, bio = EXCLUDED.bio`,[clerk_id, slogan, bio])
         } catch(error) {
             console.error("Inserting data failed",error)
         }
