@@ -35,8 +35,9 @@ export default function NewPostComponent({ newPostServerAction }: NewPostProps) 
 // can't be sure that the new data will match that of NewPFD
         newPostServerAction(myData)
         event.currentTarget.reset()
-        //^ form reset on submission
         window.location.reload()
+        //^ form reset on submission
+        
     }
 
     function handleInputChange(event: React.FormEvent<HTMLTextAreaElement>) {
