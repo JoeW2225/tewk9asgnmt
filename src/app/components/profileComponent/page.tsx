@@ -31,6 +31,7 @@ export default function NewBiosloganClient({ newBiosloganServerAction }: NewBios
 
         newBiosloganServerAction(myData)
         event.currentTarget.reset()
+        window.location.reload()
     }
 
     function handleInputChange(event: React.FormEvent<HTMLTextAreaElement>) {

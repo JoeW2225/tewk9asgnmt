@@ -1,8 +1,7 @@
 import { connect } from "@/app/utils/connect"
 import { currentUser, auth  } from "@clerk/nextjs/server";
-import { post, NewBiosloganFormData, bioslo } from "@/app/profile/profile.type"
+import { post, NewBiosloganFormData } from "@/app/profile/profile.type"
 import NewBiosloganClient from "@/app/components/profileComponent/page"
-import Link from "next/link";
 import Image from 'next/image';
 import ProfileName from '@/app/styling/profileStyling.module.css'
 import SloganStyle from '@/app/styling/profileStyling.module.css'
@@ -11,12 +10,6 @@ import ProfileNames from '@/app/styling/profileStyling.module.css'
 import ProfilePost from '@/app/styling/profileStyling.module.css'
 import PostTitle from '@/app/styling/profileStyling.module.css'
 import BioSloForm from '@/app/styling/profileStyling.module.css'
-
-
-interface PostProps {
-    PostPropData: post;
-    updatedPost: (post: post) => void
-}
 
 export default async function ProfilePage() {
     'use server'

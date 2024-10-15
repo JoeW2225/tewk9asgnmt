@@ -1,21 +1,8 @@
 import { connect } from "@/app/utils/connect"
 import { auth } from "@clerk/nextjs/server";
-import { ServerPostData, Post, NewPostFormData } from "./feed.type";
+import { Post, NewPostFormData } from "./feed.type";
 import NewPostComponent from "@/app/components/feedComponent/page"
 import Image from 'next/image';
-
-interface FeedProps {
-    FeedPropData: ServerPostData;
-    updateFeed: (formData: ServerPostData) => void
-//^here we can just use void as the promise is being dealt with directly on this page. However...
-//^ when we pass the async newPostServerAction to the client-side, we need to use Promise<void> (see feedComponent...)
-}
-
-interface PostProps {
-    PostPropData: Post;
-    updatedPost: (post: Post) => void
-}
-
 
 export default async function FeedPage() {
     const db = connect()

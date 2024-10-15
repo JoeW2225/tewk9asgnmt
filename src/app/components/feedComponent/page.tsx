@@ -36,6 +36,7 @@ export default function NewPostComponent({ newPostServerAction }: NewPostProps) 
         newPostServerAction(myData)
         event.currentTarget.reset()
         //^ form reset on submission
+        window.location.reload()
     }
 
     function handleInputChange(event: React.FormEvent<HTMLTextAreaElement>) {
