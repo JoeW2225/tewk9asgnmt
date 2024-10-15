@@ -12,6 +12,7 @@ https://www.youtube.com/watch?v=UqjJLhCm2-k&t=1026s&ab_channel=CandDev
 https://clerk.com/docs/references/javascript/user/user
 https://clerk.com/docs/references/backend/types/backend-user
 https://www.w3schools.com/sql/sql_foreignkey.asp
+https://nextjs.org/docs/pages/building-your-application/configuring/eslint#disabling-rules
 (Matts screenshot on creating data types and using them in interfaces etc)
 
 #### UI library used:
