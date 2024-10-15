@@ -73,7 +73,7 @@ export default async function ProfilePage() {
             //^ we're saying if the old DB imgURL IS NOT the same as the current imgURL, then UPDATE DB:
             await db.query(`UPDATE bioslogan 
                 SET slogan= $1, bio = $2
-                WHERE clerk_id = $3`, [profile.slogan, profile.bio, clerk_id])
+                WHERE clerk_id = $3`, [profile[0]?.slogan, profile[0]?.bio, clerk_id])
         }
 
         //! POSTING new bio & slogan to db:
