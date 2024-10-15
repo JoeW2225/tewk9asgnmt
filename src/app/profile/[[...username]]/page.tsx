@@ -20,6 +20,10 @@ export default async function ProfilePage() {
     const firstName = displayUser?.firstName || '';
     const lastName = displayUser?.lastName || '';
     const username = displayUser?.username || '';
+    //^^ If displayUser?.username (or any of the others) is undefined or an empty string, 
+    // it will fall back to the empty string '' on the right side of ||. This ensures that username always has a value, 
+    // even if displayUser or username is missing. (called optional chaining, see reason why in this case in README.md)
+
     console.log(imageUrl)
 
     const clerkIdResult = await db.query(`
@@ -41,6 +45,7 @@ export default async function ProfilePage() {
             [userId])
 
         const profile: profile[] = profileInfo.rows
+        // we give the profile a type as we will use it on line 54 for the imageUrl
         
         //! If the profile doesn't exist, add to DB:
         if (profile.length === 0 ) {
@@ -51,7 +56,16 @@ export default async function ProfilePage() {
 
         //! If the profile pic  URL doesn't match the URL in the DB:
         if (profile[0]?.imageUrl !== imageUrl) {
-            //^ we're saying if the old DB imgURL IS NOT the same as the current imgURL, then UPDATE DB:
+            //^ we're saying is: 
+            // profile[0] looks at the first item in the array
+            // , ?. (optional chaining)- checks if there is a first item in the profile[0] array,
+            // if it doesn't exist, it won't try to access imageUrl.
+            
+            // so: profile[0]?.imageUrl means it will try to access the 1st item in the array, if it does it will
+            // return the imageUrl, if it doesn't exist it will return undefined but NOT THROW AN ERROR because of ?
+
+            // if the old DB imageUrl IS NOT the same as the current imgURL, then UPDATE DB:
+
             await db.query(`UPDATE profiles SET imageUrl = $1 WHERE clerk_id = $2`, [imageUrl, userId])
         }
         
@@ -70,12 +84,16 @@ export default async function ProfilePage() {
         
         //! If slogan or bio doesn't exist (empty), update the DB:
         if (!bioSlogan || !bioSlogan.slogan || !bioSlogan.bio) {
-            //^ we're saying if the old DB imgURL IS NOT the same as the current imgURL, then UPDATE DB:
+            //^ we're saying is: If there’s no bioSlogan record at all (!bioSlogan), 
+            // or if there is a bioSlogan record but either the slogan or bio field is missing or empty, 
+            // then the following code block will run:
+
             await db.query(`UPDATE bioslogan 
                 SET slogan= $1, bio = $2
                 WHERE clerk_id = $3`, [profile[0]?.slogan, profile[0]?.bio, clerk_id])
         }
-
+            //^ see README.md for further notes about: [profile[0]?.slogan, profile[0]?.bio, clerk_id]
+            
         //! POSTING new bio & slogan to db:
         async function newBiosloganServerAction(formData: NewBiosloganFormData) {
         'use server'

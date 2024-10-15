@@ -1,7 +1,7 @@
 import pg from "pg";
 
 let db: null | pg.Pool
-//^ added
+//^ added as per Sam's advice due to TS throwing error that db was not a defined type
 
 export const connect = () => {
     if(!db) {
