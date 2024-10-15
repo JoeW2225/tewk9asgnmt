@@ -1,7 +1,7 @@
 import { connect } from "@/app/utils/connect"
 import { currentUser, auth  } from "@clerk/nextjs/server";
 import { post, NewBiosloganFormData } from "@/app/profile/profile.type"
-import NewBiosloganClient from "@/app/components/profileComponent/page"
+import NewBiosloganClient from "@/app/components/profileComponent/NewBiosloComponent"
 import Image from 'next/image';
 import ProfileName from '@/app/styling/profileStyling.module.css'
 import SloganStyle from '@/app/styling/profileStyling.module.css'

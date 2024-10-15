@@ -1,7 +1,7 @@
 import { connect } from "@/app/utils/connect"
 import { auth } from "@clerk/nextjs/server";
 import { Post, NewPostFormData } from "./feed.type";
-import NewPostComponent from "@/app/components/feedComponent/page"
+import NewPostComponent from "@/app/components/feedComponent/NewPostComponent"
 import Image from 'next/image';
 
 export default async function FeedPage() {
