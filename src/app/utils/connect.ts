@@ -1,6 +1,6 @@
 import pg from "pg";
 
-let db;
+let db: null | pg.Pool
 
 export const connect = () => {
     if(!db) {
