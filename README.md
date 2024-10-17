@@ -56,6 +56,9 @@ SOLUTION:
 > > > slogan = EXCLUDED.slogan,
 > > > bio = EXCLUDED.bio;
 
+**FYI ON CONFLICT & EXCLUDED: they are used as a pair, much like async and await.**
+ON CONFLICT detects when an INSERT operation conflicts with existing data (e.g. in my case pre-exisiting slogan & bio), and EXCLUDED gives you access to the data that was about to be inserted but caused the conflict. Together, they help you resolve the conflict by deciding whether to ignore the conflict or update the existing data with the new values.
+
 However, to get this to work we need to uniquely identify a user's bio and slogan, we need to enforce uniqueness on clerk_id in the bioslogan table.
 
 To make sure that there can only be one entry per clerk_id in the bioslogan table, we add a unique constraint on the clerk_id column:
@@ -64,6 +67,20 @@ To make sure that there can only be one entry per clerk_id in the bioslogan tabl
 > > > ADD CONSTRAINT unique_clerk_id UNIQUE (clerk_id);
 
 This ensures that each clerk_id can have only one bio and slogan, so any INSERT operation with a duplicate clerk_id will trigger the ON CONFLICT
+
+**BREAKDOWN: (profile page.tsx) const profile: profile[] = profileInfo.rows:**
+
+profile: profile[]: This means that the data is expected to be an array of profile objects. profile[] this is TS type linked to our profile types in the other file.
+
+profileInfo.rows holds all the rows from the query that match the condition clerk_id = $1, and these are being assigned to profile.
+
+**BREAKDOWN: (profile page.tsx) const profileId = profile[0].id:**
+
+profile[0]: Accesses the first element of the profile array. The profile[] array comes from the previous query (see above).
+
+.id: Grabs the id property of the first profile. The id is part of the profile object, which links to the primary key in the profile DB.
+
+This is all key as it will be used as a unique identifier for other DB queries, such as inserting or updating the bio and slogan.
 
 ### Reflection:
 

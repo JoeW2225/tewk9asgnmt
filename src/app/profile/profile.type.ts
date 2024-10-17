@@ -18,6 +18,7 @@ export type NewBiosloganFormData = {
 
 //! profile types:
 export type profile = {
+    id: number,
     clerk_id: string,
     imageUrl: string,
     firstname: string,
